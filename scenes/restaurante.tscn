@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7xb7dspqwhbi"]
+
+[ext_resource type="Texture2D" uid="uid://17814ydeus1n" path="res://assets/restaurante.png" id="1_qrkxv"]
+[ext_resource type="Texture2D" uid="uid://cdfrjhnktwm8u" path="res://assets/mesa.png" id="2_fvvxn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_87bsf"]
+size = Vector2(285, 97)
+
+[node name="Restaurante" type="Node2D"]
+
+[node name="Fondo" type="TextureRect" parent="."]
+offset_left = 8.0
+offset_top = -6.0
+offset_right = 939.0
+offset_bottom = 567.0
+texture = ExtResource("1_qrkxv")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(332, 181)
+shape = SubResource("RectangleShape2D_87bsf")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(339, 182)
+scale = Vector2(0.610614, 0.58617)
+texture = ExtResource("2_fvvxn")
