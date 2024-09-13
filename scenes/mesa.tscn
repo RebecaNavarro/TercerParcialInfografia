@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://txvtqu608yk2"]
+
+[ext_resource type="Script" path="res://scripts/mesa.gd" id="1_2ccot"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c636b"]
+size = Vector2(252, 71)
+
+[node name="Mesa" type="Area2D"]
+script = ExtResource("1_2ccot")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(116, 25.5)
+shape = SubResource("RectangleShape2D_c636b")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
