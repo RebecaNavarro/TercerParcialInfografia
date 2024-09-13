@@ -1,16 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dogaja2y08ood"]
-
-[ext_resource type="PackedScene" uid="uid://bn1pjnhk1xdol" path="res://scenes/mesero.tscn" id="1_8qo34"]
+[gd_scene load_steps=2 format=3 uid="uid://dogaja2y08ood"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1b2vl"]
-vertices = PackedVector2Array(1074.93, 35.9219, 1072.06, 501.813, 195, 486.172, 195, 29.0703)
+vertices = PackedVector2Array(1075.13, 35.9219, 1081.85, 511.07, 200.883, 517.922, 195.117, 29.0703)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(185, 496, 185, 19, 1085, 26, 1082, 512)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(191, 528, 185, 19, 1085, 26, 1092, 521)])
 
 [node name="Navigation" type="Node2D"]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_1b2vl")
-
-[node name="Mesero" parent="." instance=ExtResource("1_8qo34")]
-position = Vector2(254, 227)

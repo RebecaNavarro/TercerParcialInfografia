@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpi4ww0fml2f3"]
+
+[ext_resource type="Texture2D" uid="uid://chodd1qhprw50" path="res://assets/comida.png" id="1_7x8cg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_786mi"]
+radius = 19.0
+height = 38.0
+
+[node name="Comida" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(313, 473)
+scale = Vector2(0.055, 0.0539514)
+texture = ExtResource("1_7x8cg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(311, 477)
+shape = SubResource("CapsuleShape2D_786mi")

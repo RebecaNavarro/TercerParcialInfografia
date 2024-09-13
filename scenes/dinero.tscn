@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://briitorlnm7yu"]
+
+[ext_resource type="Texture2D" uid="uid://ddpvqr25hh54y" path="res://assets/dinero.png" id="1_hoxnb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6vj3"]
+size = Vector2(39.5, 20)
+
+[node name="Dinero" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(297.5, 470.5)
+scale = Vector2(0.0481065, 0.0404412)
+texture = ExtResource("1_hoxnb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(297, 474)
+shape = SubResource("RectangleShape2D_e6vj3")

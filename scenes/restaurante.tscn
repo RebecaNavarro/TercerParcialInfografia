@@ -1,15 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7xb7dspqwhbi"]
+[gd_scene load_steps=8 format=3 uid="uid://b7xb7dspqwhbi"]
 
+[ext_resource type="Script" path="res://scripts/restaurante.gd" id="1_qec2h"]
 [ext_resource type="Texture2D" uid="uid://17814ydeus1n" path="res://assets/restaurante.png" id="1_qrkxv"]
 [ext_resource type="PackedScene" uid="uid://dogaja2y08ood" path="res://scenes/navigation.tscn" id="2_nxlqp"]
+[ext_resource type="PackedScene" uid="uid://bn1pjnhk1xdol" path="res://scenes/mesero.tscn" id="3_0wigu"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_87bsf"]
-size = Vector2(346.5, 106.25)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gre23"]
+size = Vector2(684, 68)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7t2mo"]
-size = Vector2(684.5, 69)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8mun"]
+size = Vector2(188, 53)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xwg80"]
+font_size = 21
+font_color = Color(0.593569, 0.885283, 0.989403, 1)
 
 [node name="Restaurante" type="Node2D"]
+script = ExtResource("1_qec2h")
 
 [node name="Fondo" type="TextureRect" parent="."]
 offset_left = 2.0
@@ -18,41 +25,95 @@ offset_right = 1147.0
 offset_bottom = 662.0
 texture = ExtResource("1_qrkxv")
 
-[node name="Mesa" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesa"]
-position = Vector2(391, 211)
-shape = SubResource("RectangleShape2D_87bsf")
-
-[node name="Mesa5" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesa5"]
-position = Vector2(867, 500)
-shape = SubResource("RectangleShape2D_87bsf")
-
-[node name="Mesa2" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesa2"]
-position = Vector2(866, 208)
-shape = SubResource("RectangleShape2D_87bsf")
-
-[node name="Mesa3" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesa3"]
-position = Vector2(635, 360)
-shape = SubResource("RectangleShape2D_87bsf")
-
-[node name="Mesa4" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesa4"]
-position = Vector2(387, 500)
-shape = SubResource("RectangleShape2D_87bsf")
-
-[node name="Barra" type="StaticBody2D" parent="."]
+[node name="Barra" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barra"]
-position = Vector2(351.75, 609)
-shape = SubResource("RectangleShape2D_7t2mo")
+position = Vector2(347, 626)
+shape = SubResource("RectangleShape2D_gre23")
+
+[node name="Mesero" parent="." instance=ExtResource("3_0wigu")]
+position = Vector2(234, 334)
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="Timer_barra" type="Timer" parent="Timers"]
+
+[node name="Timer_mesa_a" type="Timer" parent="Timers"]
+
+[node name="Timer_mesa_b" type="Timer" parent="Timers"]
+
+[node name="Timer_mesa_c" type="Timer" parent="Timers"]
+
+[node name="Timer_mesa_d" type="Timer" parent="Timers"]
+
+[node name="Timer_mesa_e" type="Timer" parent="Timers"]
+
+[node name="Timer_dinero" type="Timer" parent="Timers"]
 
 [node name="Navigation" parent="." instance=ExtResource("2_nxlqp")]
-position = Vector2(-12, 154)
+position = Vector2(-39, 108)
+
+[node name="Mesas" type="Node2D" parent="."]
+
+[node name="MesaA" type="Area2D" parent="Mesas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/MesaA"]
+position = Vector2(401, 191)
+shape = SubResource("RectangleShape2D_o8mun")
+
+[node name="MesaB" type="Area2D" parent="Mesas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/MesaB"]
+position = Vector2(865, 191)
+shape = SubResource("RectangleShape2D_o8mun")
+
+[node name="MesaC" type="Area2D" parent="Mesas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/MesaC"]
+position = Vector2(627, 324)
+shape = SubResource("RectangleShape2D_o8mun")
+
+[node name="MesaD" type="Area2D" parent="Mesas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/MesaD"]
+position = Vector2(395, 486)
+shape = SubResource("RectangleShape2D_o8mun")
+
+[node name="MesaE" type="Area2D" parent="Mesas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/MesaE"]
+position = Vector2(865, 496)
+shape = SubResource("RectangleShape2D_o8mun")
+
+[node name="Icono" type="Label" parent="."]
+modulate = Color(0.670076, 0.771741, 0.8354, 1)
+offset_left = 1016.0
+offset_top = 522.0
+offset_right = 1031.0
+offset_bottom = 552.0
+text = "$"
+label_settings = SubResource("LabelSettings_xwg80")
+
+[node name="Monto" type="Label" parent="."]
+modulate = Color(0.670076, 0.771741, 0.8354, 1)
+offset_left = 1082.0
+offset_top = 523.0
+offset_right = 1118.0
+offset_bottom = 553.0
+text = "000"
+label_settings = SubResource("LabelSettings_xwg80")
+horizontal_alignment = 2
+
+[connection signal="input_event" from="Barra" to="." method="_on_barra_input_event"]
+[connection signal="timeout" from="Timers/Timer_barra" to="." method="_on_timer_barra_timeout"]
+[connection signal="timeout" from="Timers/Timer_mesa_a" to="." method="_on_timer_mesa_a_timeout"]
+[connection signal="timeout" from="Timers/Timer_mesa_b" to="." method="_on_timer_mesa_b_timeout"]
+[connection signal="timeout" from="Timers/Timer_mesa_c" to="." method="_on_timer_mesa_c_timeout"]
+[connection signal="timeout" from="Timers/Timer_mesa_d" to="." method="_on_timer_mesa_d_timeout"]
+[connection signal="timeout" from="Timers/Timer_mesa_e" to="." method="_on_timer_mesa_e_timeout"]
+[connection signal="timeout" from="Timers/Timer_dinero" to="." method="_on_timer_dinero_timeout"]
+[connection signal="input_event" from="Mesas/MesaA" to="." method="_on_mesa_a_input_event"]
+[connection signal="input_event" from="Mesas/MesaB" to="." method="_on_mesa_b_input_event"]
+[connection signal="input_event" from="Mesas/MesaC" to="." method="_on_mesa_c_input_event"]
+[connection signal="input_event" from="Mesas/MesaD" to="." method="_on_mesa_d_input_event"]
+[connection signal="input_event" from="Mesas/MesaE" to="." method="_on_mesa_e_input_event"]
