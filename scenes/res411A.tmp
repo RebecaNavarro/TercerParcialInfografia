@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7xb7dspqwhbi"]
+
+[ext_resource type="Script" path="res://scripts/restaurante.gd" id="1_qec2h"]
+[ext_resource type="Texture2D" uid="uid://17814ydeus1n" path="res://assets/restaurante.png" id="1_qrkxv"]
+[ext_resource type="PackedScene" uid="uid://dogaja2y08ood" path="res://scenes/navigation.tscn" id="2_nxlqp"]
+[ext_resource type="PackedScene" uid="uid://bn1pjnhk1xdol" path="res://scenes/mesero.tscn" id="3_0wigu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7t2mo"]
+size = Vector2(684.5, 69)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_87bsf"]
+size = Vector2(206.125, 91.125)
+
+[node name="Restaurante" type="Node2D"]
+script = ExtResource("1_qec2h")
+
+[node name="Fondo" type="TextureRect" parent="."]
+offset_left = 2.0
+offset_top = -4.0
+offset_right = 1147.0
+offset_bottom = 662.0
+texture = ExtResource("1_qrkxv")
+
+[node name="Barra" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barra"]
+position = Vector2(351.75, 609)
+shape = SubResource("RectangleShape2D_7t2mo")
+
+[node name="Navigation" parent="." instance=ExtResource("2_nxlqp")]
+position = Vector2(-21, 160)
+
+[node name="Mesas" type="Node2D" parent="."]
+
+[node name="Mesa" type="StaticBody2D" parent="Mesas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/Mesa"]
+position = Vector2(398.938, 214.563)
+shape = SubResource("RectangleShape2D_87bsf")
+
+[node name="Mesa5" type="StaticBody2D" parent="Mesas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/Mesa5"]
+position = Vector2(862, 500)
+shape = SubResource("RectangleShape2D_87bsf")
+
+[node name="Mesa2" type="StaticBody2D" parent="Mesas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/Mesa2"]
+position = Vector2(862, 208)
+shape = SubResource("RectangleShape2D_87bsf")
+
+[node name="Mesa3" type="StaticBody2D" parent="Mesas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/Mesa3"]
+position = Vector2(630, 345)
+shape = SubResource("RectangleShape2D_87bsf")
+
+[node name="Mesa4" type="StaticBody2D" parent="Mesas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/Mesa4"]
+position = Vector2(402, 500)
+shape = SubResource("RectangleShape2D_87bsf")
+
+[node name="Mesero" parent="." instance=ExtResource("3_0wigu")]
+position = Vector2(117, 330)
