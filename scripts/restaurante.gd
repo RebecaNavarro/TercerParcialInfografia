@@ -1,12 +1,16 @@
 extends Node2D
 
 @onready var mesero: CharacterBody2D = $"Mesero"
-@onready var navigation: NavigationAgent2D = $"Mesero/NavigationAgent2D"
-@onready var monto: Label = $Monto
+@onready var monto: Label = $Labels/Monto
+@onready var enojados: Label = $Labels/Enojados
 @onready var barra: Area2D = $Barra
+@onready var entrada: Area2D = $Entrada
 #Timers
 @onready var timer_barra: Timer = $Timers/Timer_barra
 @onready var timer_dinero: Timer = $Timers/Timer_dinero
+@onready var timer_cliente: Timer = $Timers/Timer_cliente
+@onready var timer_borra_cliente: Timer = $Timers/Timer_borra_cliente
+
 @onready var timer_mesa_a: Timer = $Timers/Timer_mesa_a
 @onready var timer_mesa_b: Timer = $Timers/Timer_mesa_b
 @onready var timer_mesa_c: Timer = $Timers/Timer_mesa_c
@@ -21,6 +25,7 @@ extends Node2D
 
 var food = preload("res://scenes/comida.tscn")
 var money = preload("res://scenes/dinero.tscn")
+var cliente = preload("res://scenes/cliente.tscn")
 
 var food_instance_barra = null
 var food_instance_mesa_a = null
@@ -28,12 +33,14 @@ var food_instance_mesa_b = null
 var food_instance_mesa_c = null
 var food_instance_mesa_d = null
 var food_instance_mesa_e = null
+var money_instance = null
+var cliente_instance = null
 
 var food_con_mesero = false
-
-var money_instance = null
+var sentado = false
 
 var dinero = 0
+var enojo = 0
 
 func _ready() -> void:
 	timer_barra.wait_time = 10
@@ -53,15 +60,25 @@ func _ready() -> void:
 	timer_mesa_e.wait_time = 5
 	timer_mesa_e.one_shot = true
 	
-	timer_dinero.wait_time = 5
+	timer_dinero.wait_time = 3
 	timer_dinero.one_shot = true 
+	
+	timer_cliente.wait_time = 3
+	timer_cliente.one_shot = true  
+	timer_cliente.start()
 	 
-	actualizar_contador()
+	timer_borra_cliente.wait_time = 4
+	timer_borra_cliente.one_shot = true 
 
 func _input(event):
 	if event is InputEvent and event.is_action_pressed("ClickIzq"):
 		var target_position = get_global_mouse_position()
 		mesero.set_target(target_position)
+	if event is InputEvent and event.is_action_pressed("ClickDer") and cliente_instance:
+		timer_borra_cliente.stop()
+		var target_position_cliente = get_global_mouse_position()
+		cliente_instance.set_target(target_position_cliente)
+		sentado = true
 
 func _on_timer_barra_timeout() -> void:
 	if not food_instance_barra:
@@ -190,9 +207,37 @@ func _on_timer_dinero_timeout() -> void:
 		money_instance = null
 		print("Dinero recogido")
 
+func _on_timer_cliente_timeout() -> void:
+	if not cliente_instance:
+		cliente_instance = cliente.instantiate()
+		entrada.add_child(cliente_instance)
+		cliente_instance.position = Vector2(100, 300)
+		timer_borra_cliente.start()
+
+func _on_timer_borra_cliente_timeout() -> void:
+	if cliente_instance and not sentado:
+		print("Se va enojado")
+		cliente_instance.queue_free()
+		cliente_instance = null
+		timer_cliente.start()
+		aumentar_enojados(1)
+	else:
+		print("Se va feliz")
+		sentado = false
+		cliente_instance.queue_free()
+		cliente_instance = null
+		timer_cliente.start()
+
 func aumentar_contador(cantidad: int):
 	dinero += cantidad
 	actualizar_contador()
 
 func actualizar_contador():
 	monto.text = str(dinero)
+	
+func aumentar_enojados(cantidad: int):
+	enojo += cantidad
+	actualizar_enojados()
+
+func actualizar_enojados():
+	enojados.text = str(enojo)
