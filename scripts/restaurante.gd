@@ -10,6 +10,7 @@ extends Node2D
 @onready var timer_dinero: Timer = $Timers/Timer_dinero
 @onready var timer_cliente: Timer = $Timers/Timer_cliente
 @onready var timer_borra_cliente: Timer = $Timers/Timer_borra_cliente
+@onready var timer_nivel: Timer = $Timers/Timer_nivel
 
 @onready var timer_mesa_a: Timer = $Timers/Timer_mesa_a
 @onready var timer_mesa_b: Timer = $Timers/Timer_mesa_b
@@ -35,6 +36,11 @@ var food_instance_mesa_d = null
 var food_instance_mesa_e = null
 var money_instance = null
 var cliente_instance = null
+var cliente_instance_a = null
+var cliente_instance_b = null
+var cliente_instance_c = null
+var cliente_instance_d = null
+var cliente_instance_e = null
 
 var food_con_mesero = false
 var sentado = false
@@ -43,9 +49,13 @@ var dinero = 0
 var enojo = 0
 
 func _ready() -> void:
-	timer_barra.wait_time = 10
+	timer_barra.wait_time = 7.5
 	timer_barra.one_shot = true  
 	timer_barra.start()
+	
+	timer_nivel.wait_time = 50
+	timer_nivel.one_shot = true  
+	timer_nivel.start()
 	
 	timer_mesa_a.wait_time = 5
 	timer_mesa_a.one_shot = true  
@@ -60,14 +70,15 @@ func _ready() -> void:
 	timer_mesa_e.wait_time = 5
 	timer_mesa_e.one_shot = true
 	
-	timer_dinero.wait_time = 3
+	timer_dinero.wait_time = 2.5
 	timer_dinero.one_shot = true 
 	
-	timer_cliente.wait_time = 3
+	timer_cliente.wait_time = 5
 	timer_cliente.one_shot = true  
-	timer_cliente.start()
 	 
-	timer_borra_cliente.wait_time = 4
+	crear_cliente()
+	
+	timer_borra_cliente.wait_time = 5
 	timer_borra_cliente.one_shot = true 
 
 func _input(event):
@@ -78,7 +89,6 @@ func _input(event):
 		timer_borra_cliente.stop()
 		var target_position_cliente = get_global_mouse_position()
 		cliente_instance.set_target(target_position_cliente)
-		sentado = true
 
 func _on_timer_barra_timeout() -> void:
 	if not food_instance_barra:
@@ -105,6 +115,12 @@ func _on_mesa_a_input_event(viewport: Node, event: InputEvent, shape_idx: int) -
 			print("Se ha creado la comida en la mesa a")
 			food_con_mesero = false
 			timer_mesa_a.start()
+	if event is InputEvent and event.is_action_pressed("ClickDer"):
+		if not cliente_instance_a and cliente_instance:
+			cliente_instance_a = cliente_instance
+			print("Cliente en la mesa a")
+			sentado = true
+			timer_cliente.start()
 
 func _on_mesa_b_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEvent and event.is_action_pressed("ClickIzq"):
@@ -115,6 +131,12 @@ func _on_mesa_b_input_event(viewport: Node, event: InputEvent, shape_idx: int) -
 			print("Se ha creado la comida en la mesa b")
 			food_con_mesero = false
 			timer_mesa_b.start()
+	if event is InputEvent and event.is_action_pressed("ClickDer"):
+		if not cliente_instance_b and cliente_instance:
+			cliente_instance_b = cliente_instance
+			print("Cliente en la mesa b")
+			sentado = true
+			timer_cliente.start()
 
 func _on_mesa_c_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEvent and event.is_action_pressed("ClickIzq"):
@@ -125,6 +147,12 @@ func _on_mesa_c_input_event(viewport: Node, event: InputEvent, shape_idx: int) -
 			print("Se ha creado la comida en la mesa c")
 			food_con_mesero = false
 			timer_mesa_c.start()
+	if event is InputEvent and event.is_action_pressed("ClickDer"):
+		if not cliente_instance_c and cliente_instance:
+			cliente_instance_c = cliente_instance
+			print("Cliente en la mesa c")
+			sentado = true
+			timer_cliente.start()
 
 func _on_mesa_d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEvent and event.is_action_pressed("ClickIzq"):
@@ -135,6 +163,12 @@ func _on_mesa_d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -
 			print("Se ha creado la comida en la mesa d")
 			food_con_mesero = false
 			timer_mesa_d.start()
+	if event is InputEvent and event.is_action_pressed("ClickDer"):
+		if not cliente_instance_d and cliente_instance:
+			cliente_instance_d = cliente_instance
+			print("Cliente en la mesa d")
+			sentado = true
+			timer_cliente.start()
 
 func _on_mesa_e_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEvent and event.is_action_pressed("ClickIzq"):
@@ -145,6 +179,12 @@ func _on_mesa_e_input_event(viewport: Node, event: InputEvent, shape_idx: int) -
 			print("Se ha creado la comida en la mesa e")
 			food_con_mesero = false
 			timer_mesa_e.start()
+	if event is InputEvent and event.is_action_pressed("ClickDer"):
+		if not cliente_instance_e and cliente_instance:
+			cliente_instance_e = cliente_instance
+			print("Cliente en la mesa e")
+			sentado = true
+			timer_cliente.start()
 
 func _on_timer_mesa_a_timeout() -> void:
 	if food_instance_mesa_a:
@@ -156,7 +196,13 @@ func _on_timer_mesa_a_timeout() -> void:
 		money_instance.position = Vector2(125, -300)
 		timer_dinero.start()
 		aumentar_contador(5)
-
+	if cliente_instance_a:
+		cliente_instance_a.queue_free()  
+		cliente_instance_a = null
+		sentado = false
+		print("Cliente se fue feliz")
+		print("Cliente eliminado de la mesa a")
+		
 func _on_timer_mesa_b_timeout() -> void:
 	if food_instance_mesa_b:
 		food_instance_mesa_b.queue_free()  
@@ -167,6 +213,12 @@ func _on_timer_mesa_b_timeout() -> void:
 		money_instance.position = Vector2(600, -300)
 		timer_dinero.start()
 		aumentar_contador(5)
+	if cliente_instance_b:
+		cliente_instance_b.queue_free()  
+		cliente_instance_b = null
+		sentado = false
+		print("Cliente se fue feliz")
+		print("Cliente eliminado de la mesa b")
 
 func _on_timer_mesa_c_timeout() -> void:
 	if food_instance_mesa_c:
@@ -178,6 +230,12 @@ func _on_timer_mesa_c_timeout() -> void:
 		money_instance.position = Vector2(350, -160)
 		timer_dinero.start()
 		aumentar_contador(5)
+	if cliente_instance_c:
+		cliente_instance_c.queue_free()  
+		cliente_instance_c = null
+		sentado = false
+		print("Cliente se fue feliz")
+		print("Cliente eliminado de la mesa c")
 
 func _on_timer_mesa_d_timeout() -> void:
 	if food_instance_mesa_d:
@@ -189,6 +247,12 @@ func _on_timer_mesa_d_timeout() -> void:
 		money_instance.position = Vector2(125, 0)
 		timer_dinero.start()
 		aumentar_contador(5)
+	if cliente_instance_d:
+		cliente_instance_d.queue_free()  
+		cliente_instance_d = null
+		sentado = false
+		print("Cliente se fue feliz")
+		print("Cliente eliminado de la mesa d")
 
 func _on_timer_mesa_e_timeout() -> void:
 	if food_instance_mesa_e:
@@ -200,6 +264,12 @@ func _on_timer_mesa_e_timeout() -> void:
 		money_instance.position = Vector2(600, 0)
 		timer_dinero.start()
 		aumentar_contador(5)
+	if cliente_instance_e:
+		cliente_instance_e.queue_free()  
+		cliente_instance_e = null
+		sentado = false
+		print("Cliente se fue feliz")
+		print("Cliente eliminado de la mesa e")
 
 func _on_timer_dinero_timeout() -> void:
 	if money_instance:
@@ -207,26 +277,25 @@ func _on_timer_dinero_timeout() -> void:
 		money_instance = null
 		print("Dinero recogido")
 
+func crear_cliente():
+	cliente_instance = cliente.instantiate()
+	entrada.add_child(cliente_instance)
+	cliente_instance.position = Vector2(100, 300)
+
 func _on_timer_cliente_timeout() -> void:
-	if not cliente_instance:
-		cliente_instance = cliente.instantiate()
-		entrada.add_child(cliente_instance)
-		cliente_instance.position = Vector2(100, 300)
-		timer_borra_cliente.start()
+	crear_cliente()
+	timer_borra_cliente.start()
 
 func _on_timer_borra_cliente_timeout() -> void:
-	if cliente_instance and not sentado:
-		print("Se va enojado")
+	if cliente_instance :
 		cliente_instance.queue_free()
 		cliente_instance = null
 		timer_cliente.start()
 		aumentar_enojados(1)
-	else:
-		print("Se va feliz")
-		sentado = false
-		cliente_instance.queue_free()
-		cliente_instance = null
-		timer_cliente.start()
+
+func _on_timer_nivel_timeout() -> void:
+	queue_free()
+	print("Nivel terminado, reinicie el juego")
 
 func aumentar_contador(cantidad: int):
 	dinero += cantidad
