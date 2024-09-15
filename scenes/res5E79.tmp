@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7xb7dspqwhbi"]
+[gd_scene load_steps=10 format=3 uid="uid://b7xb7dspqwhbi"]
 
 [ext_resource type="Script" path="res://scripts/restaurante.gd" id="1_qec2h"]
 [ext_resource type="Texture2D" uid="uid://17814ydeus1n" path="res://assets/restaurante.png" id="1_qrkxv"]
@@ -17,6 +17,9 @@ font_color = Color(0.593569, 0.885283, 0.989403, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hwqcj"]
 size = Vector2(180, 113)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_20kui"]
+size = Vector2(62, 39)
 
 [node name="Restaurante" type="Node2D"]
 script = ExtResource("1_qec2h")
@@ -54,8 +57,6 @@ position = Vector2(996, 379)
 [node name="Timer_dinero" type="Timer" parent="Timers"]
 
 [node name="Timer_cliente" type="Timer" parent="Timers"]
-
-[node name="Timer_borra_cliente" type="Timer" parent="Timers"]
 
 [node name="Navigation" parent="." instance=ExtResource("2_nxlqp")]
 position = Vector2(-35, 108)
@@ -103,15 +104,6 @@ offset_bottom = 552.0
 text = "$"
 label_settings = SubResource("LabelSettings_xwg80")
 
-[node name="Icono2" type="Label" parent="Labels"]
-modulate = Color(0.670076, 0.771741, 0.8354, 1)
-offset_left = 1014.0
-offset_top = 569.0
-offset_right = 1033.0
-offset_bottom = 599.0
-text = ">:("
-label_settings = SubResource("LabelSettings_xwg80")
-
 [node name="Monto" type="Label" parent="Labels"]
 modulate = Color(0.670076, 0.771741, 0.8354, 1)
 offset_left = 1082.0
@@ -122,21 +114,19 @@ text = "000"
 label_settings = SubResource("LabelSettings_xwg80")
 horizontal_alignment = 2
 
-[node name="Enojados" type="Label" parent="Labels"]
-modulate = Color(0.670076, 0.771741, 0.8354, 1)
-offset_left = 1083.0
-offset_top = 570.0
-offset_right = 1119.0
-offset_bottom = 600.0
-text = "000"
-label_settings = SubResource("LabelSettings_xwg80")
-horizontal_alignment = 2
-
 [node name="Entrada" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entrada"]
 position = Vector2(188, 337)
 shape = SubResource("RectangleShape2D_hwqcj")
+
+[node name="Sillas" type="Node2D" parent="."]
+
+[node name="SillaA" type="Area2D" parent="Sillas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sillas/SillaA"]
+position = Vector2(532, 241.5)
+shape = SubResource("RectangleShape2D_20kui")
 
 [connection signal="input_event" from="Barra" to="." method="_on_barra_input_event"]
 [connection signal="timeout" from="Timers/Timer_barra" to="." method="_on_timer_barra_timeout"]
@@ -147,7 +137,6 @@ shape = SubResource("RectangleShape2D_hwqcj")
 [connection signal="timeout" from="Timers/Timer_mesa_e" to="." method="_on_timer_mesa_e_timeout"]
 [connection signal="timeout" from="Timers/Timer_dinero" to="." method="_on_timer_dinero_timeout"]
 [connection signal="timeout" from="Timers/Timer_cliente" to="." method="_on_timer_cliente_timeout"]
-[connection signal="timeout" from="Timers/Timer_borra_cliente" to="." method="_on_timer_borra_cliente_timeout"]
 [connection signal="input_event" from="Mesas/MesaA" to="." method="_on_mesa_a_input_event"]
 [connection signal="input_event" from="Mesas/MesaB" to="." method="_on_mesa_b_input_event"]
 [connection signal="input_event" from="Mesas/MesaC" to="." method="_on_mesa_c_input_event"]

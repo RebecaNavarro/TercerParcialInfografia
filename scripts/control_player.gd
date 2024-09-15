@@ -3,6 +3,7 @@ extends Node2D
 signal do_move(input_vector)
 
 @onready var mesero: CharacterBody2D = $".."
+@onready var cliente: CharacterBody2D = $".."
 
 const ACCELERATION = 500
 const FRICTION = 500
@@ -23,8 +24,11 @@ func move_state(delta):
 	if input_vector != Vector2.ZERO:
 		do_move.emit(input_vector)
 		mesero.velocity = mesero.velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
+		cliente.velocity = mesero.velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
 		last_direction = input_vector
 	else:
 		mesero.velocity = mesero.velocity.move_toward(Vector2.ZERO, FRICTION * delta)
+		cliente.velocity = cliente.velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
 	mesero.move_and_slide()
+	cliente.move_and_slide()
