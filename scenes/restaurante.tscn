@@ -9,7 +9,7 @@
 size = Vector2(684, 68)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o8mun"]
-size = Vector2(188, 53)
+size = Vector2(290, 106.25)
 
 [sub_resource type="LabelSettings" id="LabelSettings_xwg80"]
 font_size = 21
@@ -57,39 +57,41 @@ position = Vector2(996, 379)
 
 [node name="Timer_borra_cliente" type="Timer" parent="Timers"]
 
+[node name="Timer_nivel" type="Timer" parent="Timers"]
+
 [node name="Navigation" parent="." instance=ExtResource("2_nxlqp")]
-position = Vector2(-35, 108)
+position = Vector2(-24, 105)
 
 [node name="Mesas" type="Node2D" parent="."]
 
 [node name="MesaA" type="Area2D" parent="Mesas"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/MesaA"]
-position = Vector2(401, 191)
+position = Vector2(436, 211.875)
 shape = SubResource("RectangleShape2D_o8mun")
 
 [node name="MesaB" type="Area2D" parent="Mesas"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/MesaB"]
-position = Vector2(865, 191)
+position = Vector2(890, 216)
 shape = SubResource("RectangleShape2D_o8mun")
 
 [node name="MesaC" type="Area2D" parent="Mesas"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/MesaC"]
-position = Vector2(627, 324)
+position = Vector2(659, 344)
 shape = SubResource("RectangleShape2D_o8mun")
 
 [node name="MesaD" type="Area2D" parent="Mesas"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/MesaD"]
-position = Vector2(395, 486)
+position = Vector2(431, 509)
 shape = SubResource("RectangleShape2D_o8mun")
 
 [node name="MesaE" type="Area2D" parent="Mesas"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mesas/MesaE"]
-position = Vector2(865, 496)
+position = Vector2(886, 508)
 shape = SubResource("RectangleShape2D_o8mun")
 
 [node name="Labels" type="Node2D" parent="."]
@@ -148,6 +150,7 @@ shape = SubResource("RectangleShape2D_hwqcj")
 [connection signal="timeout" from="Timers/Timer_dinero" to="." method="_on_timer_dinero_timeout"]
 [connection signal="timeout" from="Timers/Timer_cliente" to="." method="_on_timer_cliente_timeout"]
 [connection signal="timeout" from="Timers/Timer_borra_cliente" to="." method="_on_timer_borra_cliente_timeout"]
+[connection signal="timeout" from="Timers/Timer_nivel" to="." method="_on_timer_nivel_timeout"]
 [connection signal="input_event" from="Mesas/MesaA" to="." method="_on_mesa_a_input_event"]
 [connection signal="input_event" from="Mesas/MesaB" to="." method="_on_mesa_b_input_event"]
 [connection signal="input_event" from="Mesas/MesaC" to="." method="_on_mesa_c_input_event"]
