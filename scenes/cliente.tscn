@@ -471,16 +471,18 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="Timers" type="Node2D" parent="."]
 
-[node name="Timer2" type="Timer" parent="Timers"]
+[node name="Timer_feiz" type="Timer" parent="Timers"]
 
-[node name="Timer" type="Timer" parent="Timers"]
+[node name="Timer_enojado" type="Timer" parent="Timers"]
 
 [node name="Timer_borrar_enojado" type="Timer" parent="Timers"]
 
 [node name="Timer_borrar_feliz" type="Timer" parent="Timers"]
 
 [connection signal="do_move" from="PlayerControl" to="." method="_on_player_control_do_move"]
-[connection signal="timeout" from="Timers/Timer2" to="." method="_on_timer_2_timeout"]
-[connection signal="timeout" from="Timers/Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timers/Timer_feiz" to="." method="_on_timer_feiz_timeout"]
+[connection signal="timeout" from="Timers/Timer_feiz" to="." method="_on_timer_2_timeout"]
+[connection signal="timeout" from="Timers/Timer_enojado" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timers/Timer_enojado" to="." method="_on_timer_enojado_timeout"]
 [connection signal="timeout" from="Timers/Timer_borrar_enojado" to="." method="_on_timer_borrar_enojado_timeout"]
 [connection signal="timeout" from="Timers/Timer_borrar_feliz" to="." method="_on_timer_borrar_feliz_timeout"]

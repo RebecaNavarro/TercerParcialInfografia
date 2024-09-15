@@ -3,8 +3,8 @@ extends CharacterBody2D
 @onready var navigation: NavigationAgent2D = $NavigationAgent2D
 @onready var anim_tree: AnimationTree = $AnimationTree
 @onready var state_machine = $AnimationTree.get("parameters/playback")
-@onready var timer: Timer = $Timers/Timer
-@onready var timer_2: Timer = $Timers/Timer2
+@onready var timer_feiz: Timer = $Timers/Timer_feiz
+@onready var timer_enojado: Timer = $Timers/Timer_enojado
 @onready var timer_borrar_enojado: Timer = $Timers/Timer_borrar_enojado
 @onready var timer_borrar_feliz: Timer = $Timers/Timer_borrar_feliz
 
@@ -21,15 +21,15 @@ func set_target(new_target_position: Vector2) -> void:
 
 func _ready() -> void:
 	print(navigation.get_current_navigation_path())
-	timer.wait_time = 3
-	timer.one_shot = true  
-	timer.start()
-	timer_2.wait_time = 3
-	timer_2.one_shot = true  
-	timer_2.start()
-	timer_borrar_enojado.wait_time = 5
+	timer_enojado.wait_time = 3
+	timer_enojado.one_shot = true  
+	timer_enojado.start()
+	timer_feiz.wait_time = 3
+	timer_feiz.one_shot = true  
+	timer_feiz.start()
+	timer_borrar_enojado.wait_time = 4
 	timer_borrar_enojado.one_shot = true  
-	timer_borrar_feliz.wait_time = 5
+	timer_borrar_feliz.wait_time = 4
 	timer_borrar_feliz.one_shot = true  
 
 func _physics_process(delta: float) -> void:
@@ -58,15 +58,10 @@ func _on_player_control_do_move(incoming_input_vector: Vector2) -> void:
 	set_blend_position(input_vector)
 	state_machine.travel("Walk")
 	
-func _on_timer_timeout() -> void :
+func _on_timer_enojado_timeout() -> void :
 	if not sentado:
 		state_machine.travel("Angry")
 		timer_borrar_enojado.start()
-
-func _on_timer_2_timeout() -> void:
-	if sentado:
-		state_machine.travel("Happy")
-		timer_borrar_feliz.start()
 
 func _on_timer_borrar_enojado_timeout() -> void:
 	if not sentado:
@@ -75,3 +70,9 @@ func _on_timer_borrar_enojado_timeout() -> void:
 func _on_timer_borrar_feliz_timeout() -> void:
 	if sentado:
 		queue_free()
+
+
+func _on_timer_feiz_timeout() -> void:
+	if sentado:
+		state_machine.travel("Happy")
+		timer_borrar_feliz.start()

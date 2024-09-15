@@ -49,11 +49,11 @@ var dinero = 0
 var enojo = 0
 
 func _ready() -> void:
-	timer_barra.wait_time = 10
+	timer_barra.wait_time = 7.5
 	timer_barra.one_shot = true  
 	timer_barra.start()
 	
-	timer_nivel.wait_time = 20
+	timer_nivel.wait_time = 50
 	timer_nivel.one_shot = true  
 	timer_nivel.start()
 	
@@ -70,15 +70,15 @@ func _ready() -> void:
 	timer_mesa_e.wait_time = 5
 	timer_mesa_e.one_shot = true
 	
-	timer_dinero.wait_time = 3
+	timer_dinero.wait_time = 2.5
 	timer_dinero.one_shot = true 
 	
-	timer_cliente.wait_time = 3
+	timer_cliente.wait_time = 5
 	timer_cliente.one_shot = true  
 	 
 	crear_cliente()
 	
-	timer_borra_cliente.wait_time = 6
+	timer_borra_cliente.wait_time = 5
 	timer_borra_cliente.one_shot = true 
 
 func _input(event):
